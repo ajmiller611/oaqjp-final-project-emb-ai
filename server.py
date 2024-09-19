@@ -9,19 +9,22 @@ def emo_detector():
 
     response = emotion_detector(text_to_analyze)
 
-    anger_score = response['anger']
-    disgust_score = response['disgust']
-    fear_score = response['fear']
-    joy_score = response['joy']
-    sadness_score = response['sadness']
+    if response['dominant_emotion'] is None:
+        return "Invalid text! Please try again!"
+    else:
+        anger_score = response['anger']
+        disgust_score = response['disgust']
+        fear_score = response['fear']
+        joy_score = response['joy']
+        sadness_score = response['sadness']
 
-    return (f"For the given statement, the system response is 'anger': {anger_score}, "
-            f"'disgust': {disgust_score}, 'fear': {fear_score}, 'joy': {joy_score}, "
-            f"and 'sadness': {sadness_score}. The dominant emotion is {response['dominant_emotion']}.")
+        return (f"For the given statement, the system response is 'anger': {anger_score}, "
+                f"'disgust': {disgust_score}, 'fear': {fear_score}, 'joy': {joy_score}, "
+                f"and 'sadness': {sadness_score}. The dominant emotion is {response['dominant_emotion']}.")
 
 @app.route("/")
 def render_index_page():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001)
+    app.run(host="0.0.0.0", port=5000)
